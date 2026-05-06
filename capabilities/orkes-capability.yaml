@@ -1,0 +1,1506 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Orkes Conductor REST API
+  description: The Orkes Conductor REST API provides endpoints for managing workflows, tasks, human tasks, secrets, schedules,
+    and other resources in the Orkes workflow orchestration platform built on Netflix Conductor.
+  tags:
+  - Orkes
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: orkes
+    baseUri: https://play.orkes.io/api
+    description: Orkes Conductor REST API HTTP API.
+    authentication:
+      type: bearer
+      token: '{{ORKES_TOKEN}}'
+    resources:
+    - name: metadata-workflow
+      path: /metadata/workflow
+      operations:
+      - name: listworkflowdefinitions
+        method: GET
+        description: List workflow definitions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: registerworkflowdefinition
+        method: POST
+        description: Register a workflow definition
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateworkflowdefinitions
+        method: PUT
+        description: Update workflow definitions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: metadata-workflow-name
+      path: /metadata/workflow/{name}
+      operations:
+      - name: getworkflowdefinition
+        method: GET
+        description: Get workflow definition
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          required: true
+        - name: version
+          in: query
+          type: integer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deleteworkflowdefinition
+        method: DELETE
+        description: Delete a workflow definition
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          required: true
+        - name: version
+          in: query
+          type: integer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: metadata-taskdefs
+      path: /metadata/taskdefs
+      operations:
+      - name: listtaskdefinitions
+        method: GET
+        description: List task definitions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: registertaskdefinitions
+        method: POST
+        description: Register task definitions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: metadata-taskdefs-tasktype
+      path: /metadata/taskdefs/{taskType}
+      operations:
+      - name: gettaskdefinition
+        method: GET
+        description: Get task definition
+        inputParameters:
+        - name: taskType
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletetaskdefinition
+        method: DELETE
+        description: Delete a task definition
+        inputParameters:
+        - name: taskType
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: workflow
+      path: /workflow
+      operations:
+      - name: startworkflow
+        method: POST
+        description: Start a workflow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: workflow-workflowid
+      path: /workflow/{workflowId}
+      operations:
+      - name: getworkflowexecution
+        method: GET
+        description: Get workflow execution
+        inputParameters:
+        - name: workflowId
+          in: path
+          type: string
+          required: true
+        - name: includeTasks
+          in: query
+          type: boolean
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: terminateworkflow
+        method: DELETE
+        description: Terminate a workflow
+        inputParameters:
+        - name: workflowId
+          in: path
+          type: string
+          required: true
+        - name: reason
+          in: query
+          type: string
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: workflow-workflowid-pause
+      path: /workflow/{workflowId}/pause
+      operations:
+      - name: pauseworkflow
+        method: PUT
+        description: Pause a workflow
+        inputParameters:
+        - name: workflowId
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: workflow-workflowid-resume
+      path: /workflow/{workflowId}/resume
+      operations:
+      - name: resumeworkflow
+        method: PUT
+        description: Resume a workflow
+        inputParameters:
+        - name: workflowId
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: workflow-workflowid-retry
+      path: /workflow/{workflowId}/retry
+      operations:
+      - name: retryworkflow
+        method: POST
+        description: Retry a workflow
+        inputParameters:
+        - name: workflowId
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: workflow-workflowid-restart
+      path: /workflow/{workflowId}/restart
+      operations:
+      - name: restartworkflow
+        method: POST
+        description: Restart a workflow
+        inputParameters:
+        - name: workflowId
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: workflow-search
+      path: /workflow/search
+      operations:
+      - name: searchworkflows
+        method: GET
+        description: Search workflows
+        inputParameters:
+        - name: start
+          in: query
+          type: integer
+        - name: size
+          in: query
+          type: integer
+        - name: sort
+          in: query
+          type: string
+        - name: freeText
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: tasks-poll-tasktype
+      path: /tasks/poll/{taskType}
+      operations:
+      - name: polltask
+        method: GET
+        description: Poll for a task
+        inputParameters:
+        - name: taskType
+          in: path
+          type: string
+          required: true
+        - name: workerid
+          in: query
+          type: string
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: tasks
+      path: /tasks
+      operations:
+      - name: updatetask
+        method: POST
+        description: Update task
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: human-tasks-search
+      path: /human/tasks/search
+      operations:
+      - name: searchhumantasks
+        method: GET
+        description: Search human tasks
+        inputParameters:
+        - name: start
+          in: query
+          type: integer
+        - name: size
+          in: query
+          type: integer
+        - name: query
+          in: query
+          type: string
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: human-tasks-taskid
+      path: /human/tasks/{taskId}
+      operations:
+      - name: gethumantask
+        method: GET
+        description: Get a human task
+        inputParameters:
+        - name: taskId
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: human-tasks-taskid-claim-userid
+      path: /human/tasks/{taskId}/claim/{userId}
+      operations:
+      - name: claimhumantask
+        method: POST
+        description: Claim a human task
+        inputParameters:
+        - name: taskId
+          in: path
+          type: string
+          required: true
+        - name: userId
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: human-tasks-taskid-release
+      path: /human/tasks/{taskId}/release
+      operations:
+      - name: releasehumantask
+        method: POST
+        description: Release a human task
+        inputParameters:
+        - name: taskId
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: human-tasks-taskid-complete
+      path: /human/tasks/{taskId}/complete
+      operations:
+      - name: completehumantask
+        method: POST
+        description: Complete a human task
+        inputParameters:
+        - name: taskId
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: secrets-key
+      path: /secrets/{key}
+      operations:
+      - name: getsecret
+        method: GET
+        description: Get a secret
+        inputParameters:
+        - name: key
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: putsecret
+        method: PUT
+        description: Create or update a secret
+        inputParameters:
+        - name: key
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletesecret
+        method: DELETE
+        description: Delete a secret
+        inputParameters:
+        - name: key
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: secrets
+      path: /secrets
+      operations:
+      - name: listsecrets
+        method: GET
+        description: List secret names
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: scheduler-schedules
+      path: /scheduler/schedules
+      operations:
+      - name: listschedules
+        method: GET
+        description: List schedules
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createschedule
+        method: POST
+        description: Create a schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: scheduler-schedules-name
+      path: /scheduler/schedules/{name}
+      operations:
+      - name: getschedule
+        method: GET
+        description: Get a schedule
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deleteschedule
+        method: DELETE
+        description: Delete a schedule
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: scheduler-schedules-name-pause
+      path: /scheduler/schedules/{name}/pause
+      operations:
+      - name: pauseschedule
+        method: POST
+        description: Pause a schedule
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: scheduler-schedules-name-resume
+      path: /scheduler/schedules/{name}/resume
+      operations:
+      - name: resumeschedule
+        method: POST
+        description: Resume a schedule
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: token
+      path: /token
+      operations:
+      - name: generatetoken
+        method: POST
+        description: Generate access token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: orkes-rest
+    description: REST adapter for Orkes Conductor REST API.
+    resources:
+    - path: /metadata/workflow
+      name: listworkflowdefinitions
+      operations:
+      - method: GET
+        name: listworkflowdefinitions
+        description: List workflow definitions
+        call: orkes.listworkflowdefinitions
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /metadata/workflow
+      name: registerworkflowdefinition
+      operations:
+      - method: POST
+        name: registerworkflowdefinition
+        description: Register a workflow definition
+        call: orkes.registerworkflowdefinition
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /metadata/workflow
+      name: updateworkflowdefinitions
+      operations:
+      - method: PUT
+        name: updateworkflowdefinitions
+        description: Update workflow definitions
+        call: orkes.updateworkflowdefinitions
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /metadata/workflow/{name}
+      name: getworkflowdefinition
+      operations:
+      - method: GET
+        name: getworkflowdefinition
+        description: Get workflow definition
+        call: orkes.getworkflowdefinition
+        with:
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /metadata/workflow/{name}
+      name: deleteworkflowdefinition
+      operations:
+      - method: DELETE
+        name: deleteworkflowdefinition
+        description: Delete a workflow definition
+        call: orkes.deleteworkflowdefinition
+        with:
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /metadata/taskdefs
+      name: listtaskdefinitions
+      operations:
+      - method: GET
+        name: listtaskdefinitions
+        description: List task definitions
+        call: orkes.listtaskdefinitions
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /metadata/taskdefs
+      name: registertaskdefinitions
+      operations:
+      - method: POST
+        name: registertaskdefinitions
+        description: Register task definitions
+        call: orkes.registertaskdefinitions
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /metadata/taskdefs/{taskType}
+      name: gettaskdefinition
+      operations:
+      - method: GET
+        name: gettaskdefinition
+        description: Get task definition
+        call: orkes.gettaskdefinition
+        with:
+          taskType: rest.taskType
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /metadata/taskdefs/{taskType}
+      name: deletetaskdefinition
+      operations:
+      - method: DELETE
+        name: deletetaskdefinition
+        description: Delete a task definition
+        call: orkes.deletetaskdefinition
+        with:
+          taskType: rest.taskType
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /workflow
+      name: startworkflow
+      operations:
+      - method: POST
+        name: startworkflow
+        description: Start a workflow
+        call: orkes.startworkflow
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /workflow/{workflowId}
+      name: getworkflowexecution
+      operations:
+      - method: GET
+        name: getworkflowexecution
+        description: Get workflow execution
+        call: orkes.getworkflowexecution
+        with:
+          workflowId: rest.workflowId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /workflow/{workflowId}
+      name: terminateworkflow
+      operations:
+      - method: DELETE
+        name: terminateworkflow
+        description: Terminate a workflow
+        call: orkes.terminateworkflow
+        with:
+          workflowId: rest.workflowId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /workflow/{workflowId}/pause
+      name: pauseworkflow
+      operations:
+      - method: PUT
+        name: pauseworkflow
+        description: Pause a workflow
+        call: orkes.pauseworkflow
+        with:
+          workflowId: rest.workflowId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /workflow/{workflowId}/resume
+      name: resumeworkflow
+      operations:
+      - method: PUT
+        name: resumeworkflow
+        description: Resume a workflow
+        call: orkes.resumeworkflow
+        with:
+          workflowId: rest.workflowId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /workflow/{workflowId}/retry
+      name: retryworkflow
+      operations:
+      - method: POST
+        name: retryworkflow
+        description: Retry a workflow
+        call: orkes.retryworkflow
+        with:
+          workflowId: rest.workflowId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /workflow/{workflowId}/restart
+      name: restartworkflow
+      operations:
+      - method: POST
+        name: restartworkflow
+        description: Restart a workflow
+        call: orkes.restartworkflow
+        with:
+          workflowId: rest.workflowId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /workflow/search
+      name: searchworkflows
+      operations:
+      - method: GET
+        name: searchworkflows
+        description: Search workflows
+        call: orkes.searchworkflows
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /tasks/poll/{taskType}
+      name: polltask
+      operations:
+      - method: GET
+        name: polltask
+        description: Poll for a task
+        call: orkes.polltask
+        with:
+          taskType: rest.taskType
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /tasks
+      name: updatetask
+      operations:
+      - method: POST
+        name: updatetask
+        description: Update task
+        call: orkes.updatetask
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /human/tasks/search
+      name: searchhumantasks
+      operations:
+      - method: GET
+        name: searchhumantasks
+        description: Search human tasks
+        call: orkes.searchhumantasks
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /human/tasks/{taskId}
+      name: gethumantask
+      operations:
+      - method: GET
+        name: gethumantask
+        description: Get a human task
+        call: orkes.gethumantask
+        with:
+          taskId: rest.taskId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /human/tasks/{taskId}/claim/{userId}
+      name: claimhumantask
+      operations:
+      - method: POST
+        name: claimhumantask
+        description: Claim a human task
+        call: orkes.claimhumantask
+        with:
+          taskId: rest.taskId
+          userId: rest.userId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /human/tasks/{taskId}/release
+      name: releasehumantask
+      operations:
+      - method: POST
+        name: releasehumantask
+        description: Release a human task
+        call: orkes.releasehumantask
+        with:
+          taskId: rest.taskId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /human/tasks/{taskId}/complete
+      name: completehumantask
+      operations:
+      - method: POST
+        name: completehumantask
+        description: Complete a human task
+        call: orkes.completehumantask
+        with:
+          taskId: rest.taskId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /secrets/{key}
+      name: getsecret
+      operations:
+      - method: GET
+        name: getsecret
+        description: Get a secret
+        call: orkes.getsecret
+        with:
+          key: rest.key
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /secrets/{key}
+      name: putsecret
+      operations:
+      - method: PUT
+        name: putsecret
+        description: Create or update a secret
+        call: orkes.putsecret
+        with:
+          key: rest.key
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /secrets/{key}
+      name: deletesecret
+      operations:
+      - method: DELETE
+        name: deletesecret
+        description: Delete a secret
+        call: orkes.deletesecret
+        with:
+          key: rest.key
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /secrets
+      name: listsecrets
+      operations:
+      - method: GET
+        name: listsecrets
+        description: List secret names
+        call: orkes.listsecrets
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /scheduler/schedules
+      name: listschedules
+      operations:
+      - method: GET
+        name: listschedules
+        description: List schedules
+        call: orkes.listschedules
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /scheduler/schedules
+      name: createschedule
+      operations:
+      - method: POST
+        name: createschedule
+        description: Create a schedule
+        call: orkes.createschedule
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /scheduler/schedules/{name}
+      name: getschedule
+      operations:
+      - method: GET
+        name: getschedule
+        description: Get a schedule
+        call: orkes.getschedule
+        with:
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /scheduler/schedules/{name}
+      name: deleteschedule
+      operations:
+      - method: DELETE
+        name: deleteschedule
+        description: Delete a schedule
+        call: orkes.deleteschedule
+        with:
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /scheduler/schedules/{name}/pause
+      name: pauseschedule
+      operations:
+      - method: POST
+        name: pauseschedule
+        description: Pause a schedule
+        call: orkes.pauseschedule
+        with:
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /scheduler/schedules/{name}/resume
+      name: resumeschedule
+      operations:
+      - method: POST
+        name: resumeschedule
+        description: Resume a schedule
+        call: orkes.resumeschedule
+        with:
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /token
+      name: generatetoken
+      operations:
+      - method: POST
+        name: generatetoken
+        description: Generate access token
+        call: orkes.generatetoken
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: orkes-mcp
+    transport: http
+    description: MCP adapter for Orkes Conductor REST API for AI agent use.
+    tools:
+    - name: listworkflowdefinitions
+      description: List workflow definitions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: orkes.listworkflowdefinitions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: registerworkflowdefinition
+      description: Register a workflow definition
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: orkes.registerworkflowdefinition
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updateworkflowdefinitions
+      description: Update workflow definitions
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: orkes.updateworkflowdefinitions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getworkflowdefinition
+      description: Get workflow definition
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: orkes.getworkflowdefinition
+      with:
+        name: tools.name
+        version: tools.version
+      inputParameters:
+      - name: name
+        type: string
+        description: name
+        required: true
+      - name: version
+        type: integer
+        description: version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deleteworkflowdefinition
+      description: Delete a workflow definition
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: orkes.deleteworkflowdefinition
+      with:
+        name: tools.name
+        version: tools.version
+      inputParameters:
+      - name: name
+        type: string
+        description: name
+        required: true
+      - name: version
+        type: integer
+        description: version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listtaskdefinitions
+      description: List task definitions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: orkes.listtaskdefinitions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: registertaskdefinitions
+      description: Register task definitions
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: orkes.registertaskdefinitions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gettaskdefinition
+      description: Get task definition
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: orkes.gettaskdefinition
+      with:
+        taskType: tools.taskType
+      inputParameters:
+      - name: taskType
+        type: string
+        description: taskType
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletetaskdefinition
+      description: Delete a task definition
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: orkes.deletetaskdefinition
+      with:
+        taskType: tools.taskType
+      inputParameters:
+      - name: taskType
+        type: string
+        description: taskType
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: startworkflow
+      description: Start a workflow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: orkes.startworkflow
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getworkflowexecution
+      description: Get workflow execution
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: orkes.getworkflowexecution
+      with:
+        workflowId: tools.workflowId
+        includeTasks: tools.includeTasks
+      inputParameters:
+      - name: workflowId
+        type: string
+        description: workflowId
+        required: true
+      - name: includeTasks
+        type: boolean
+        description: includeTasks
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: terminateworkflow
+      description: Terminate a workflow
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: orkes.terminateworkflow
+      with:
+        workflowId: tools.workflowId
+        reason: tools.reason
+      inputParameters:
+      - name: workflowId
+        type: string
+        description: workflowId
+        required: true
+      - name: reason
+        type: string
+        description: reason
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: pauseworkflow
+      description: Pause a workflow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: orkes.pauseworkflow
+      with:
+        workflowId: tools.workflowId
+      inputParameters:
+      - name: workflowId
+        type: string
+        description: workflowId
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: resumeworkflow
+      description: Resume a workflow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: orkes.resumeworkflow
+      with:
+        workflowId: tools.workflowId
+      inputParameters:
+      - name: workflowId
+        type: string
+        description: workflowId
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retryworkflow
+      description: Retry a workflow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: orkes.retryworkflow
+      with:
+        workflowId: tools.workflowId
+      inputParameters:
+      - name: workflowId
+        type: string
+        description: workflowId
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: restartworkflow
+      description: Restart a workflow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: orkes.restartworkflow
+      with:
+        workflowId: tools.workflowId
+      inputParameters:
+      - name: workflowId
+        type: string
+        description: workflowId
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: searchworkflows
+      description: Search workflows
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: orkes.searchworkflows
+      with:
+        start: tools.start
+        size: tools.size
+        sort: tools.sort
+        freeText: tools.freeText
+        query: tools.query
+      inputParameters:
+      - name: start
+        type: integer
+        description: start
+      - name: size
+        type: integer
+        description: size
+      - name: sort
+        type: string
+        description: sort
+      - name: freeText
+        type: string
+        description: freeText
+      - name: query
+        type: string
+        description: query
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: polltask
+      description: Poll for a task
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: orkes.polltask
+      with:
+        taskType: tools.taskType
+        workerid: tools.workerid
+      inputParameters:
+      - name: taskType
+        type: string
+        description: taskType
+        required: true
+      - name: workerid
+        type: string
+        description: workerid
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatetask
+      description: Update task
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: orkes.updatetask
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: searchhumantasks
+      description: Search human tasks
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: orkes.searchhumantasks
+      with:
+        start: tools.start
+        size: tools.size
+        query: tools.query
+      inputParameters:
+      - name: start
+        type: integer
+        description: start
+      - name: size
+        type: integer
+        description: size
+      - name: query
+        type: string
+        description: query
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gethumantask
+      description: Get a human task
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: orkes.gethumantask
+      with:
+        taskId: tools.taskId
+      inputParameters:
+      - name: taskId
+        type: string
+        description: taskId
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: claimhumantask
+      description: Claim a human task
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: orkes.claimhumantask
+      with:
+        taskId: tools.taskId
+        userId: tools.userId
+      inputParameters:
+      - name: taskId
+        type: string
+        description: taskId
+        required: true
+      - name: userId
+        type: string
+        description: userId
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: releasehumantask
+      description: Release a human task
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: orkes.releasehumantask
+      with:
+        taskId: tools.taskId
+      inputParameters:
+      - name: taskId
+        type: string
+        description: taskId
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: completehumantask
+      description: Complete a human task
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: orkes.completehumantask
+      with:
+        taskId: tools.taskId
+      inputParameters:
+      - name: taskId
+        type: string
+        description: taskId
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getsecret
+      description: Get a secret
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: orkes.getsecret
+      with:
+        key: tools.key
+      inputParameters:
+      - name: key
+        type: string
+        description: key
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: putsecret
+      description: Create or update a secret
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: orkes.putsecret
+      with:
+        key: tools.key
+      inputParameters:
+      - name: key
+        type: string
+        description: key
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletesecret
+      description: Delete a secret
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: orkes.deletesecret
+      with:
+        key: tools.key
+      inputParameters:
+      - name: key
+        type: string
+        description: key
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listsecrets
+      description: List secret names
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: orkes.listsecrets
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listschedules
+      description: List schedules
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: orkes.listschedules
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createschedule
+      description: Create a schedule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: orkes.createschedule
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getschedule
+      description: Get a schedule
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: orkes.getschedule
+      with:
+        name: tools.name
+      inputParameters:
+      - name: name
+        type: string
+        description: name
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deleteschedule
+      description: Delete a schedule
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: orkes.deleteschedule
+      with:
+        name: tools.name
+      inputParameters:
+      - name: name
+        type: string
+        description: name
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: pauseschedule
+      description: Pause a schedule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: orkes.pauseschedule
+      with:
+        name: tools.name
+      inputParameters:
+      - name: name
+        type: string
+        description: name
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: resumeschedule
+      description: Resume a schedule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: orkes.resumeschedule
+      with:
+        name: tools.name
+      inputParameters:
+      - name: name
+        type: string
+        description: name
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: generatetoken
+      description: Generate access token
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: orkes.generatetoken
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    ORKES_TOKEN: ORKES_TOKEN
