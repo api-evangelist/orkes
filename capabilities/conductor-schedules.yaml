@@ -1,0 +1,262 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Orkes Conductor REST API — Schedules
+  description: 'Orkes Conductor REST API — Schedules. 6 operations. Lead operation: List schedules. Self-contained Naftiko
+    capability covering one Orkes business surface.'
+  tags:
+  - Orkes
+  - Schedules
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORKES_API_KEY: ORKES_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: conductor-schedules
+    baseUri: ''
+    description: Orkes Conductor REST API — Schedules business capability. Self-contained, no shared references.
+    resources:
+    - name: scheduler-schedules
+      path: /scheduler/schedules
+      operations:
+      - name: listschedules
+        method: GET
+        description: List schedules
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createschedule
+        method: POST
+        description: Create a schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: scheduler-schedules-name
+      path: /scheduler/schedules/{name}
+      operations:
+      - name: getschedule
+        method: GET
+        description: Get a schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          required: true
+      - name: deleteschedule
+        method: DELETE
+        description: Delete a schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          required: true
+    - name: scheduler-schedules-name-pause
+      path: /scheduler/schedules/{name}/pause
+      operations:
+      - name: pauseschedule
+        method: POST
+        description: Pause a schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          required: true
+    - name: scheduler-schedules-name-resume
+      path: /scheduler/schedules/{name}/resume
+      operations:
+      - name: resumeschedule
+        method: POST
+        description: Resume a schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.ORKES_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: conductor-schedules-rest
+    port: 8080
+    description: REST adapter for Orkes Conductor REST API — Schedules. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/scheduler/schedules
+      name: scheduler-schedules
+      description: REST surface for scheduler-schedules.
+      operations:
+      - method: GET
+        name: listschedules
+        description: List schedules
+        call: conductor-schedules.listschedules
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createschedule
+        description: Create a schedule
+        call: conductor-schedules.createschedule
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/scheduler/schedules/{name}
+      name: scheduler-schedules-name
+      description: REST surface for scheduler-schedules-name.
+      operations:
+      - method: GET
+        name: getschedule
+        description: Get a schedule
+        call: conductor-schedules.getschedule
+        with:
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteschedule
+        description: Delete a schedule
+        call: conductor-schedules.deleteschedule
+        with:
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/scheduler/schedules/{name}/pause
+      name: scheduler-schedules-name-pause
+      description: REST surface for scheduler-schedules-name-pause.
+      operations:
+      - method: POST
+        name: pauseschedule
+        description: Pause a schedule
+        call: conductor-schedules.pauseschedule
+        with:
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/scheduler/schedules/{name}/resume
+      name: scheduler-schedules-name-resume
+      description: REST surface for scheduler-schedules-name-resume.
+      operations:
+      - method: POST
+        name: resumeschedule
+        description: Resume a schedule
+        call: conductor-schedules.resumeschedule
+        with:
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: conductor-schedules-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Orkes Conductor REST API — Schedules. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-schedules
+      description: List schedules
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: conductor-schedules.listschedules
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-schedule
+      description: Create a schedule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: conductor-schedules.createschedule
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-schedule
+      description: Get a schedule
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: conductor-schedules.getschedule
+      with:
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-schedule
+      description: Delete a schedule
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: conductor-schedules.deleteschedule
+      with:
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: pause-schedule
+      description: Pause a schedule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: conductor-schedules.pauseschedule
+      with:
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: resume-schedule
+      description: Resume a schedule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: conductor-schedules.resumeschedule
+      with:
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.

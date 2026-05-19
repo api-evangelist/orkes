@@ -1,0 +1,225 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Orkes Conductor REST API — Workflow Metadata
+  description: 'Orkes Conductor REST API — Workflow Metadata. 5 operations. Lead operation: List workflow definitions. Self-contained
+    Naftiko capability covering one Orkes business surface.'
+  tags:
+  - Orkes
+  - Workflow Metadata
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ORKES_API_KEY: ORKES_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: conductor-workflow-metadata
+    baseUri: ''
+    description: Orkes Conductor REST API — Workflow Metadata business capability. Self-contained, no shared references.
+    resources:
+    - name: metadata-workflow
+      path: /metadata/workflow
+      operations:
+      - name: listworkflowdefinitions
+        method: GET
+        description: List workflow definitions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: registerworkflowdefinition
+        method: POST
+        description: Register a workflow definition
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updateworkflowdefinitions
+        method: PUT
+        description: Update workflow definitions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: metadata-workflow-name
+      path: /metadata/workflow/{name}
+      operations:
+      - name: getworkflowdefinition
+        method: GET
+        description: Get workflow definition
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          required: true
+        - name: version
+          in: query
+          type: integer
+      - name: deleteworkflowdefinition
+        method: DELETE
+        description: Delete a workflow definition
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          required: true
+        - name: version
+          in: query
+          type: integer
+    authentication:
+      type: bearer
+      token: '{{env.ORKES_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: conductor-workflow-metadata-rest
+    port: 8080
+    description: REST adapter for Orkes Conductor REST API — Workflow Metadata. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/metadata/workflow
+      name: metadata-workflow
+      description: REST surface for metadata-workflow.
+      operations:
+      - method: GET
+        name: listworkflowdefinitions
+        description: List workflow definitions
+        call: conductor-workflow-metadata.listworkflowdefinitions
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: registerworkflowdefinition
+        description: Register a workflow definition
+        call: conductor-workflow-metadata.registerworkflowdefinition
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateworkflowdefinitions
+        description: Update workflow definitions
+        call: conductor-workflow-metadata.updateworkflowdefinitions
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/metadata/workflow/{name}
+      name: metadata-workflow-name
+      description: REST surface for metadata-workflow-name.
+      operations:
+      - method: GET
+        name: getworkflowdefinition
+        description: Get workflow definition
+        call: conductor-workflow-metadata.getworkflowdefinition
+        with:
+          name: rest.name
+          version: rest.version
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteworkflowdefinition
+        description: Delete a workflow definition
+        call: conductor-workflow-metadata.deleteworkflowdefinition
+        with:
+          name: rest.name
+          version: rest.version
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: conductor-workflow-metadata-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Orkes Conductor REST API — Workflow Metadata. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-workflow-definitions
+      description: List workflow definitions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: conductor-workflow-metadata.listworkflowdefinitions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: register-workflow-definition
+      description: Register a workflow definition
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: conductor-workflow-metadata.registerworkflowdefinition
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-workflow-definitions
+      description: Update workflow definitions
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: conductor-workflow-metadata.updateworkflowdefinitions
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-workflow-definition
+      description: Get workflow definition
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: conductor-workflow-metadata.getworkflowdefinition
+      with:
+        name: tools.name
+        version: tools.version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-workflow-definition
+      description: Delete a workflow definition
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: conductor-workflow-metadata.deleteworkflowdefinition
+      with:
+        name: tools.name
+        version: tools.version
+      outputParameters:
+      - type: object
+        mapping: $.
