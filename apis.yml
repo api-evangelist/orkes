@@ -5,43 +5,45 @@ description: Orkes is a modern workflow orchestration platform built on Netflix 
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-- Microservices
+  - Microservices
 url: https://raw.githubusercontent.com/api-evangelist/orkes/refs/heads/main/apis.yml
 created: '2026-03-26'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-- aid: orkes:orkes
-  name: Orkes
-  description: Orkes is a modern workflow orchestration platform built on Netflix Conductor for orchestrating microservices,
-    AI agents, and durable workflows.
-  humanURL: https://orkes.io/
-  tags:
-  - Microservices
-  properties:
-  - type: OpenAPI
-    url: https://raw.githubusercontent.com/api-evangelist/orkes/refs/heads/main/openapi/orkes-conductor-api.yml
-  - type: NaftikoCapability
-    url: capabilities/conductor-authentication.yaml
-  - type: NaftikoCapability
-    url: capabilities/conductor-human-tasks.yaml
-  - type: NaftikoCapability
-    url: capabilities/conductor-schedules.yaml
-  - type: NaftikoCapability
-    url: capabilities/conductor-secrets.yaml
-  - type: NaftikoCapability
-    url: capabilities/conductor-task-metadata.yaml
-  - type: NaftikoCapability
-    url: capabilities/conductor-tasks.yaml
-  - type: NaftikoCapability
-    url: capabilities/conductor-workflow-execution.yaml
-  - type: NaftikoCapability
-    url: capabilities/conductor-workflow-metadata.yaml
+  - aid: orkes:orkes
+    name: Orkes
+    description: Orkes is a modern workflow orchestration platform built on Netflix Conductor for orchestrating microservices,
+      AI agents, and durable workflows.
+    humanURL: https://orkes.io/
+    tags:
+    - Microservices
+    properties:
+    - type: OpenAPI
+      url: https://raw.githubusercontent.com/api-evangelist/orkes/refs/heads/main/openapi/orkes-conductor-api.yml
+    - type: NaftikoCapability
+      url: capabilities/conductor-authentication.yaml
+    - type: NaftikoCapability
+      url: capabilities/conductor-human-tasks.yaml
+    - type: NaftikoCapability
+      url: capabilities/conductor-schedules.yaml
+    - type: NaftikoCapability
+      url: capabilities/conductor-secrets.yaml
+    - type: NaftikoCapability
+      url: capabilities/conductor-task-metadata.yaml
+    - type: NaftikoCapability
+      url: capabilities/conductor-tasks.yaml
+    - type: NaftikoCapability
+      url: capabilities/conductor-workflow-execution.yaml
+    - type: NaftikoCapability
+      url: capabilities/conductor-workflow-metadata.yaml
 common:
-- type: LinkedIn
-  url: https://www.linkedin.com/company/orkes-inc
-- type: Website
-  url: https://orkes.io/
+  - type: GitHubOrganization
+    url: https://github.com/orkes-io
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/orkes-inc
+  - type: Website
+    url: https://orkes.io/
 maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+  - FN: Kin Lane
+    email: kin@apievangelist.com
