@@ -4,7 +4,7 @@ description: >-
   Orkes is a modern workflow orchestration platform built on Netflix Conductor for orchestrating microservices, AI
   agents, and durable workflows.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Microservices
 url: https://raw.githubusercontent.com/api-evangelist/orkes/refs/heads/main/apis.yml
