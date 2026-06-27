@@ -30,7 +30,7 @@ common:
     url: https://www.linkedin.com/company/orkes-inc
   - type: Website
     url: https://orkes.io/
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://orkes.io/llms.txt
 maintainers:
   - FN: Kin Lane
