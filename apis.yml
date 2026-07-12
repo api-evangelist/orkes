@@ -24,6 +24,14 @@ apis:
       - type: OpenAPI
         url: https://raw.githubusercontent.com/api-evangelist/orkes/refs/heads/main/openapi/orkes-conductor-api.yml
 common:
+  - type: TrustCenter
+    url: security/orkes-trust-center.yml
+  - type: VulnerabilityDisclosure
+    url: security/orkes-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/orkes-domain-security.yml
+  - type: Authentication
+    url: authentication/orkes-authentication.yml
   - type: GitHubOrganization
     url: https://github.com/orkes-io
   - type: LinkedIn
@@ -32,6 +40,8 @@ common:
     url: https://orkes.io/
   - type: LlmsText
     url: https://orkes.io/llms.txt
+  - url: https://orkes.io/blog
+    type: Blog
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
