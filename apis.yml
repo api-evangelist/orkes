@@ -24,6 +24,8 @@ apis:
       - type: OpenAPI
         url: https://raw.githubusercontent.com/api-evangelist/orkes/refs/heads/main/openapi/orkes-conductor-api.yml
 common:
+  - type: AgenticAccess
+    url: agentic-access/orkes-agentic-access.yml
   - type: TrustCenter
     url: security/orkes-trust-center.yml
   - type: VulnerabilityDisclosure
