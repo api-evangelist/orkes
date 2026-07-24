@@ -1,0 +1,160 @@
+openapi: 3.1.0
+info:
+  title: Orkes Conductor REST Authentication Schedules API
+  description: The Orkes Conductor REST API provides endpoints for managing workflows, tasks, human tasks, secrets, schedules, and other resources in the Orkes workflow orchestration platform built on Netflix Conductor.
+  version: 2.0.0
+  contact:
+    name: Orkes
+    url: https://orkes.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: '{baseUrl}/api'
+  description: Orkes Conductor Server
+  variables:
+    baseUrl:
+      default: https://play.orkes.io
+security:
+- BearerAuth: []
+tags:
+- name: Schedules
+paths:
+  /scheduler/schedules:
+    get:
+      operationId: listSchedules
+      summary: List schedules
+      description: Returns all workflow schedules.
+      tags:
+      - Schedules
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule'
+    post:
+      operationId: createSchedule
+      summary: Create a schedule
+      description: Creates a new workflow schedule.
+      tags:
+      - Schedules
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Schedule'
+      responses:
+        '200':
+          description: Schedule created
+  /scheduler/schedules/{name}:
+    get:
+      operationId: getSchedule
+      summary: Get a schedule
+      description: Returns a specific workflow schedule.
+      tags:
+      - Schedules
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+    delete:
+      operationId: deleteSchedule
+      summary: Delete a schedule
+      description: Deletes a workflow schedule.
+      tags:
+      - Schedules
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Schedule deleted
+  /scheduler/schedules/{name}/pause:
+    post:
+      operationId: pauseSchedule
+      summary: Pause a schedule
+      description: Pauses a workflow schedule.
+      tags:
+      - Schedules
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Schedule paused
+  /scheduler/schedules/{name}/resume:
+    post:
+      operationId: resumeSchedule
+      summary: Resume a schedule
+      description: Resumes a paused workflow schedule.
+      tags:
+      - Schedules
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Schedule resumed
+components:
+  schemas:
+    StartWorkflowRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        version:
+          type: integer
+        correlationId:
+          type: string
+        input:
+          type: object
+        taskToDomain:
+          type: object
+        priority:
+          type: integer
+    Schedule:
+      type: object
+      properties:
+        name:
+          type: string
+        cronExpression:
+          type: string
+        startWorkflowRequest:
+          $ref: '#/components/schemas/StartWorkflowRequest'
+        paused:
+          type: boolean
+        scheduleStartTime:
+          type: integer
+          format: int64
+        scheduleEndTime:
+          type: integer
+          format: int64
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer

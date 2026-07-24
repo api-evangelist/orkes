@@ -1,0 +1,58 @@
+openapi: 3.1.0
+info:
+  title: Orkes Conductor REST Authentication API
+  description: The Orkes Conductor REST API provides endpoints for managing workflows, tasks, human tasks, secrets, schedules, and other resources in the Orkes workflow orchestration platform built on Netflix Conductor.
+  version: 2.0.0
+  contact:
+    name: Orkes
+    url: https://orkes.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: '{baseUrl}/api'
+  description: Orkes Conductor Server
+  variables:
+    baseUrl:
+      default: https://play.orkes.io
+security:
+- BearerAuth: []
+tags:
+- name: Authentication
+paths:
+  /token:
+    post:
+      operationId: generateToken
+      summary: Generate access token
+      description: Generates an access token for API authentication.
+      tags:
+      - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - keyId
+              - keySecret
+              properties:
+                keyId:
+                  type: string
+                keySecret:
+                  type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer

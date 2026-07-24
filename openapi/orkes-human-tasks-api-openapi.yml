@@ -1,0 +1,176 @@
+openapi: 3.1.0
+info:
+  title: Orkes Conductor REST Authentication Human Tasks API
+  description: The Orkes Conductor REST API provides endpoints for managing workflows, tasks, human tasks, secrets, schedules, and other resources in the Orkes workflow orchestration platform built on Netflix Conductor.
+  version: 2.0.0
+  contact:
+    name: Orkes
+    url: https://orkes.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: '{baseUrl}/api'
+  description: Orkes Conductor Server
+  variables:
+    baseUrl:
+      default: https://play.orkes.io
+security:
+- BearerAuth: []
+tags:
+- name: Human Tasks
+paths:
+  /human/tasks/search:
+    get:
+      operationId: searchHumanTasks
+      summary: Search human tasks
+      description: Search for human tasks across workflows.
+      tags:
+      - Human Tasks
+      parameters:
+      - name: start
+        in: query
+        schema:
+          type: integer
+      - name: size
+        in: query
+        schema:
+          type: integer
+      - name: query
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/HumanTask'
+                  totalHits:
+                    type: integer
+  /human/tasks/{taskId}:
+    get:
+      operationId: getHumanTask
+      summary: Get a human task
+      description: Returns details of a specific human task.
+      tags:
+      - Human Tasks
+      parameters:
+      - name: taskId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HumanTask'
+  /human/tasks/{taskId}/claim/{userId}:
+    post:
+      operationId: claimHumanTask
+      summary: Claim a human task
+      description: Claims a human task for a specific user.
+      tags:
+      - Human Tasks
+      parameters:
+      - name: taskId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Task claimed
+  /human/tasks/{taskId}/release:
+    post:
+      operationId: releaseHumanTask
+      summary: Release a human task
+      description: Releases a claimed human task.
+      tags:
+      - Human Tasks
+      parameters:
+      - name: taskId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Task released
+  /human/tasks/{taskId}/complete:
+    post:
+      operationId: completeHumanTask
+      summary: Complete a human task
+      description: Completes a human task with output.
+      tags:
+      - Human Tasks
+      parameters:
+      - name: taskId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                output:
+                  type: object
+      responses:
+        '200':
+          description: Task completed
+components:
+  schemas:
+    HumanTask:
+      type: object
+      properties:
+        taskId:
+          type: string
+        displayName:
+          type: string
+        state:
+          type: string
+          enum:
+          - PENDING
+          - ASSIGNED
+          - IN_PROGRESS
+          - COMPLETED
+          - TIMED_OUT
+        assignee:
+          type: object
+          properties:
+            userType:
+              type: string
+            user:
+              type: string
+        workflowId:
+          type: string
+        workflowName:
+          type: string
+        input:
+          type: object
+        output:
+          type: object
+        createdOn:
+          type: integer
+          format: int64
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer

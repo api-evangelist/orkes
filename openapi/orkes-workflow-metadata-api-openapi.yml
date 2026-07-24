@@ -1,0 +1,154 @@
+openapi: 3.1.0
+info:
+  title: Orkes Conductor REST Authentication Workflow Metadata API
+  description: The Orkes Conductor REST API provides endpoints for managing workflows, tasks, human tasks, secrets, schedules, and other resources in the Orkes workflow orchestration platform built on Netflix Conductor.
+  version: 2.0.0
+  contact:
+    name: Orkes
+    url: https://orkes.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: '{baseUrl}/api'
+  description: Orkes Conductor Server
+  variables:
+    baseUrl:
+      default: https://play.orkes.io
+security:
+- BearerAuth: []
+tags:
+- name: Workflow Metadata
+paths:
+  /metadata/workflow:
+    get:
+      operationId: listWorkflowDefinitions
+      summary: List workflow definitions
+      description: Returns all workflow definitions.
+      tags:
+      - Workflow Metadata
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkflowDef'
+    post:
+      operationId: registerWorkflowDefinition
+      summary: Register a workflow definition
+      description: Registers a new workflow definition.
+      tags:
+      - Workflow Metadata
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowDef'
+      responses:
+        '200':
+          description: Workflow definition registered
+    put:
+      operationId: updateWorkflowDefinitions
+      summary: Update workflow definitions
+      description: Updates existing workflow definitions.
+      tags:
+      - Workflow Metadata
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/WorkflowDef'
+      responses:
+        '200':
+          description: Workflow definitions updated
+  /metadata/workflow/{name}:
+    get:
+      operationId: getWorkflowDefinition
+      summary: Get workflow definition
+      description: Returns a workflow definition by name and optional version.
+      tags:
+      - Workflow Metadata
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: version
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowDef'
+    delete:
+      operationId: deleteWorkflowDefinition
+      summary: Delete a workflow definition
+      description: Deletes a workflow definition.
+      tags:
+      - Workflow Metadata
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: version
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Workflow definition deleted
+components:
+  schemas:
+    WorkflowDef:
+      type: object
+      required:
+      - name
+      - tasks
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        version:
+          type: integer
+        tasks:
+          type: array
+          items:
+            type: object
+        inputParameters:
+          type: array
+          items:
+            type: string
+        outputParameters:
+          type: object
+        schemaVersion:
+          type: integer
+        restartable:
+          type: boolean
+        timeoutSeconds:
+          type: integer
+          format: int64
+        timeoutPolicy:
+          type: string
+        failureWorkflow:
+          type: string
+        ownerEmail:
+          type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer

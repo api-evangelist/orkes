@@ -1,0 +1,245 @@
+openapi: 3.1.0
+info:
+  title: Orkes Conductor REST Authentication Workflow Execution API
+  description: The Orkes Conductor REST API provides endpoints for managing workflows, tasks, human tasks, secrets, schedules, and other resources in the Orkes workflow orchestration platform built on Netflix Conductor.
+  version: 2.0.0
+  contact:
+    name: Orkes
+    url: https://orkes.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: '{baseUrl}/api'
+  description: Orkes Conductor Server
+  variables:
+    baseUrl:
+      default: https://play.orkes.io
+security:
+- BearerAuth: []
+tags:
+- name: Workflow Execution
+paths:
+  /workflow:
+    post:
+      operationId: startWorkflow
+      summary: Start a workflow
+      description: Starts a new workflow execution.
+      tags:
+      - Workflow Execution
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartWorkflowRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            text/plain:
+              schema:
+                type: string
+  /workflow/{workflowId}:
+    get:
+      operationId: getWorkflowExecution
+      summary: Get workflow execution
+      description: Returns details of a workflow execution.
+      tags:
+      - Workflow Execution
+      parameters:
+      - name: workflowId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: includeTasks
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workflow'
+    delete:
+      operationId: terminateWorkflow
+      summary: Terminate a workflow
+      description: Terminates a running workflow.
+      tags:
+      - Workflow Execution
+      parameters:
+      - name: workflowId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: reason
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Workflow terminated
+  /workflow/{workflowId}/pause:
+    put:
+      operationId: pauseWorkflow
+      summary: Pause a workflow
+      description: Pauses a running workflow.
+      tags:
+      - Workflow Execution
+      parameters:
+      - name: workflowId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Workflow paused
+  /workflow/{workflowId}/resume:
+    put:
+      operationId: resumeWorkflow
+      summary: Resume a workflow
+      description: Resumes a paused workflow.
+      tags:
+      - Workflow Execution
+      parameters:
+      - name: workflowId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Workflow resumed
+  /workflow/{workflowId}/retry:
+    post:
+      operationId: retryWorkflow
+      summary: Retry a workflow
+      description: Retries a failed workflow from the last failed task.
+      tags:
+      - Workflow Execution
+      parameters:
+      - name: workflowId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Workflow retried
+  /workflow/{workflowId}/restart:
+    post:
+      operationId: restartWorkflow
+      summary: Restart a workflow
+      description: Restarts a completed workflow.
+      tags:
+      - Workflow Execution
+      parameters:
+      - name: workflowId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Workflow restarted
+  /workflow/search:
+    get:
+      operationId: searchWorkflows
+      summary: Search workflows
+      description: Search workflow executions.
+      tags:
+      - Workflow Execution
+      parameters:
+      - name: start
+        in: query
+        schema:
+          type: integer
+      - name: size
+        in: query
+        schema:
+          type: integer
+      - name: sort
+        in: query
+        schema:
+          type: string
+      - name: freeText
+        in: query
+        schema:
+          type: string
+      - name: query
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+components:
+  schemas:
+    Task:
+      type: object
+      properties:
+        taskId:
+          type: string
+        taskType:
+          type: string
+        status:
+          type: string
+        referenceTaskName:
+          type: string
+        workflowInstanceId:
+          type: string
+        inputData:
+          type: object
+        outputData:
+          type: object
+    Workflow:
+      type: object
+      properties:
+        workflowId:
+          type: string
+        workflowName:
+          type: string
+        workflowVersion:
+          type: integer
+        status:
+          type: string
+        input:
+          type: object
+        output:
+          type: object
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Task'
+        startTime:
+          type: integer
+          format: int64
+        endTime:
+          type: integer
+          format: int64
+    StartWorkflowRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        version:
+          type: integer
+        correlationId:
+          type: string
+        input:
+          type: object
+        taskToDomain:
+          type: object
+        priority:
+          type: integer
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer

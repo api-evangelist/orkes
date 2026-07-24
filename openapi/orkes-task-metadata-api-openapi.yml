@@ -1,0 +1,125 @@
+openapi: 3.1.0
+info:
+  title: Orkes Conductor REST Authentication Task Metadata API
+  description: The Orkes Conductor REST API provides endpoints for managing workflows, tasks, human tasks, secrets, schedules, and other resources in the Orkes workflow orchestration platform built on Netflix Conductor.
+  version: 2.0.0
+  contact:
+    name: Orkes
+    url: https://orkes.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: '{baseUrl}/api'
+  description: Orkes Conductor Server
+  variables:
+    baseUrl:
+      default: https://play.orkes.io
+security:
+- BearerAuth: []
+tags:
+- name: Task Metadata
+paths:
+  /metadata/taskdefs:
+    get:
+      operationId: listTaskDefinitions
+      summary: List task definitions
+      description: Returns all task definitions.
+      tags:
+      - Task Metadata
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TaskDef'
+    post:
+      operationId: registerTaskDefinitions
+      summary: Register task definitions
+      description: Registers new task definitions.
+      tags:
+      - Task Metadata
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/TaskDef'
+      responses:
+        '200':
+          description: Task definitions registered
+  /metadata/taskdefs/{taskType}:
+    get:
+      operationId: getTaskDefinition
+      summary: Get task definition
+      description: Returns a specific task definition.
+      tags:
+      - Task Metadata
+      parameters:
+      - name: taskType
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskDef'
+    delete:
+      operationId: deleteTaskDefinition
+      summary: Delete a task definition
+      description: Deletes a task definition.
+      tags:
+      - Task Metadata
+      parameters:
+      - name: taskType
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Task definition deleted
+components:
+  schemas:
+    TaskDef:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        retryCount:
+          type: integer
+        timeoutSeconds:
+          type: integer
+          format: int64
+        retryLogic:
+          type: string
+        retryDelaySeconds:
+          type: integer
+        responseTimeoutSeconds:
+          type: integer
+          format: int64
+        concurrentExecLimit:
+          type: integer
+        rateLimitPerFrequency:
+          type: integer
+        rateLimitFrequencyInSeconds:
+          type: integer
+        ownerEmail:
+          type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer

@@ -1,0 +1,100 @@
+openapi: 3.1.0
+info:
+  title: Orkes Conductor REST Authentication Tasks API
+  description: The Orkes Conductor REST API provides endpoints for managing workflows, tasks, human tasks, secrets, schedules, and other resources in the Orkes workflow orchestration platform built on Netflix Conductor.
+  version: 2.0.0
+  contact:
+    name: Orkes
+    url: https://orkes.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: '{baseUrl}/api'
+  description: Orkes Conductor Server
+  variables:
+    baseUrl:
+      default: https://play.orkes.io
+security:
+- BearerAuth: []
+tags:
+- name: Tasks
+paths:
+  /tasks/poll/{taskType}:
+    get:
+      operationId: pollTask
+      summary: Poll for a task
+      description: Polls for a task of a given type.
+      tags:
+      - Tasks
+      parameters:
+      - name: taskType
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: workerid
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+  /tasks:
+    post:
+      operationId: updateTask
+      summary: Update task
+      description: Updates a task with results.
+      tags:
+      - Tasks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskResult'
+      responses:
+        '200':
+          description: Successful response
+components:
+  schemas:
+    TaskResult:
+      type: object
+      required:
+      - workflowInstanceId
+      - taskId
+      - status
+      properties:
+        workflowInstanceId:
+          type: string
+        taskId:
+          type: string
+        status:
+          type: string
+        outputData:
+          type: object
+    Task:
+      type: object
+      properties:
+        taskId:
+          type: string
+        taskType:
+          type: string
+        status:
+          type: string
+        referenceTaskName:
+          type: string
+        workflowInstanceId:
+          type: string
+        inputData:
+          type: object
+        outputData:
+          type: object
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
