@@ -4,7 +4,20 @@ description: >-
   Orkes is a modern workflow orchestration platform built on Netflix Conductor for orchestrating microservices, AI
   agents, and durable workflows.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/orkes.png
 tags:
   - Microservices
 url: https://raw.githubusercontent.com/api-evangelist/orkes/refs/heads/main/apis.yml
@@ -12,17 +25,78 @@ created: '2026-03-26'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: orkes:orkes
-    name: Orkes
-    description: >-
-      Orkes is a modern workflow orchestration platform built on Netflix Conductor for orchestrating microservices, AI
-      agents, and durable workflows.
-    humanURL: https://orkes.io/
-    tags:
-      - Microservices
-    properties:
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/orkes/refs/heads/main/openapi/orkes-conductor-api.yml
+- aid: orkes:orkes-authentication-api
+  name: Orkes Authentication API
+  description: The Authentication API from Orkes — 1 operation(s) for authentication.
+  humanURL: https://orkes.io/
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/orkes-authentication-api-openapi.yml
+- aid: orkes:orkes-human-tasks-api
+  name: Orkes Human Tasks API
+  description: The Human Tasks API from Orkes — 5 operation(s) for human tasks.
+  humanURL: https://orkes.io/
+  tags:
+  - Human Tasks
+  properties:
+  - type: OpenAPI
+    url: openapi/orkes-human-tasks-api-openapi.yml
+- aid: orkes:orkes-schedules-api
+  name: Orkes Schedules API
+  description: The Schedules API from Orkes — 4 operation(s) for schedules.
+  humanURL: https://orkes.io/
+  tags:
+  - Schedules
+  properties:
+  - type: OpenAPI
+    url: openapi/orkes-schedules-api-openapi.yml
+- aid: orkes:orkes-secrets-api
+  name: Orkes Secrets API
+  description: The Secrets API from Orkes — 2 operation(s) for secrets.
+  humanURL: https://orkes.io/
+  tags:
+  - Secrets
+  properties:
+  - type: OpenAPI
+    url: openapi/orkes-secrets-api-openapi.yml
+- aid: orkes:orkes-task-metadata-api
+  name: Orkes Task Metadata API
+  description: The Task Metadata API from Orkes — 2 operation(s) for task metadata.
+  humanURL: https://orkes.io/
+  tags:
+  - Task Metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/orkes-task-metadata-api-openapi.yml
+- aid: orkes:orkes-tasks-api
+  name: Orkes Tasks API
+  description: The Tasks API from Orkes — 2 operation(s) for tasks.
+  humanURL: https://orkes.io/
+  tags:
+  - Tasks
+  properties:
+  - type: OpenAPI
+    url: openapi/orkes-tasks-api-openapi.yml
+- aid: orkes:orkes-workflow-execution-api
+  name: Orkes Workflow Execution API
+  description: The Workflow Execution API from Orkes — 7 operation(s) for workflow execution.
+  humanURL: https://orkes.io/
+  tags:
+  - Workflow Execution
+  properties:
+  - type: OpenAPI
+    url: openapi/orkes-workflow-execution-api-openapi.yml
+- aid: orkes:orkes-workflow-metadata-api
+  name: Orkes Workflow Metadata API
+  description: The Workflow Metadata API from Orkes — 2 operation(s) for workflow metadata.
+  humanURL: https://orkes.io/
+  tags:
+  - Workflow Metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/orkes-workflow-metadata-api-openapi.yml
 common:
   - type: AgenticAccess
     url: agentic-access/orkes-agentic-access.yml
