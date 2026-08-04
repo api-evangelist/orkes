@@ -1,0 +1,28 @@
+{
+  "provider": "orkes",
+  "sources": [
+    "orkes-authentication-api-openapi.yml",
+    "orkes-human-tasks-api-openapi.yml",
+    "orkes-schedules-api-openapi.yml",
+    "orkes-secrets-api-openapi.yml",
+    "orkes-task-metadata-api-openapi.yml",
+    "orkes-tasks-api-openapi.yml",
+    "orkes-workflow-execution-api-openapi.yml",
+    "orkes-workflow-metadata-api-openapi.yml"
+  ],
+  "outputs": [
+    "orkes-authentication-api-openapi.yml",
+    "orkes-human-tasks-api-openapi.yml",
+    "orkes-schedules-api-openapi.yml",
+    "orkes-secrets-api-openapi.yml",
+    "orkes-task-metadata-api-openapi.yml",
+    "orkes-tasks-api-openapi.yml",
+    "orkes-workflow-execution-api-openapi.yml",
+    "orkes-workflow-metadata-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
