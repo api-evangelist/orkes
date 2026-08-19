@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Orkes Conductor REST Authentication Tasks API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tasks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Poll for a task",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{baseUrl}/api/tasks/poll/:taskType",
+            "params": [
+              {
+                "name": "taskType",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workerid",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Polls for a task of a given type."
+        },
+        {
+          "info": {
+            "name": "Update task",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{baseUrl}/api/tasks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a task with results."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
