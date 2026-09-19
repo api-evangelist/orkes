@@ -60,6 +60,8 @@ apis:
   description: The Schedules API from Orkes — 4 operation(s) for schedules.
   humanURL: https://orkes.io/
   tags:
+  - Schedule
+  tags_raw:
   - Schedules
   properties:
   - type: OpenAPI
