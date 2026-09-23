@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Orkes Conductor REST Authentication Schedules API
+  title: Orkes Conductor REST Schedules API
   description: The Orkes Conductor REST API provides endpoints for managing workflows, tasks, human tasks, secrets, schedules, and other resources in the Orkes workflow orchestration platform built on Netflix Conductor.
   version: 2.0.0
   contact:
@@ -120,23 +120,6 @@ paths:
           description: Schedule resumed
 components:
   schemas:
-    StartWorkflowRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-        version:
-          type: integer
-        correlationId:
-          type: string
-        input:
-          type: object
-        taskToDomain:
-          type: object
-        priority:
-          type: integer
     Schedule:
       type: object
       properties:
@@ -154,6 +137,23 @@ components:
         scheduleEndTime:
           type: integer
           format: int64
+    StartWorkflowRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        version:
+          type: integer
+        correlationId:
+          type: string
+        input:
+          type: object
+        taskToDomain:
+          type: object
+        priority:
+          type: integer
   securitySchemes:
     BearerAuth:
       type: http

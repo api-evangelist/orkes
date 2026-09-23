@@ -1,14 +1,7 @@
 {
   "provider": "orkes",
   "sources": [
-    "orkes-authentication-api-openapi.yml",
-    "orkes-human-tasks-api-openapi.yml",
-    "orkes-schedules-api-openapi.yml",
-    "orkes-secrets-api-openapi.yml",
-    "orkes-task-metadata-api-openapi.yml",
-    "orkes-tasks-api-openapi.yml",
-    "orkes-workflow-execution-api-openapi.yml",
-    "orkes-workflow-metadata-api-openapi.yml"
+    "_original/orkes-conductor-api.yml"
   ],
   "outputs": [
     "orkes-authentication-api-openapi.yml",
@@ -23,6 +16,27 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "orkes-conductor-api.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "orkes-conductor-api.yml: declared missing tag: Authentication",
+    "orkes-conductor-api.yml: declared missing tag: Human Tasks",
+    "orkes-conductor-api.yml: declared missing tag: Schedules",
+    "orkes-conductor-api.yml: declared missing tag: Secrets",
+    "orkes-conductor-api.yml: declared missing tag: Task Metadata",
+    "orkes-conductor-api.yml: declared missing tag: Tasks",
+    "orkes-conductor-api.yml: declared missing tag: Workflow Execution",
+    "orkes-conductor-api.yml: declared missing tag: Workflow Metadata",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "orkes-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "orkes-human-tasks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "orkes-schedules-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "orkes-secrets-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "orkes-task-metadata-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "orkes-tasks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "orkes-workflow-execution-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "orkes-workflow-metadata-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

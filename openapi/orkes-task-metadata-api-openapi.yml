@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Orkes Conductor REST Authentication Task Metadata API
+  title: Orkes Conductor REST Task Metadata API
   description: The Orkes Conductor REST API provides endpoints for managing workflows, tasks, human tasks, secrets, schedules, and other resources in the Orkes workflow orchestration platform built on Netflix Conductor.
   version: 2.0.0
   contact:
