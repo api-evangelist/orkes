@@ -205,23 +205,6 @@ components:
         endTime:
           type: integer
           format: int64
-    Task:
-      type: object
-      properties:
-        taskId:
-          type: string
-        taskType:
-          type: string
-        status:
-          type: string
-        referenceTaskName:
-          type: string
-        workflowInstanceId:
-          type: string
-        inputData:
-          type: object
-        outputData:
-          type: object
     StartWorkflowRequest:
       type: object
       required:
@@ -239,6 +222,23 @@ components:
           type: object
         priority:
           type: integer
+    Task:
+      type: object
+      properties:
+        taskId:
+          type: string
+        taskType:
+          type: string
+        status:
+          type: string
+        referenceTaskName:
+          type: string
+        workflowInstanceId:
+          type: string
+        inputData:
+          type: object
+        outputData:
+          type: object
   securitySchemes:
     BearerAuth:
       type: http
