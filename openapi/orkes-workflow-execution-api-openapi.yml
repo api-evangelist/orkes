@@ -180,31 +180,6 @@ paths:
           description: Successful response
 components:
   schemas:
-    Workflow:
-      type: object
-      properties:
-        workflowId:
-          type: string
-        workflowName:
-          type: string
-        workflowVersion:
-          type: integer
-        status:
-          type: string
-        input:
-          type: object
-        output:
-          type: object
-        tasks:
-          type: array
-          items:
-            $ref: '#/components/schemas/Task'
-        startTime:
-          type: integer
-          format: int64
-        endTime:
-          type: integer
-          format: int64
     StartWorkflowRequest:
       type: object
       required:
@@ -239,6 +214,31 @@ components:
           type: object
         outputData:
           type: object
+    Workflow:
+      type: object
+      properties:
+        workflowId:
+          type: string
+        workflowName:
+          type: string
+        workflowVersion:
+          type: integer
+        status:
+          type: string
+        input:
+          type: object
+        output:
+          type: object
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Task'
+        startTime:
+          type: integer
+          format: int64
+        endTime:
+          type: integer
+          format: int64
   securitySchemes:
     BearerAuth:
       type: http
