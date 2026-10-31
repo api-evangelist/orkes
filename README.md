@@ -1,4 +1,4 @@
-# Orkes (orkes)
+# Orkes
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,47 +66,131 @@
 
 Orkes is a modern workflow orchestration platform built on Netflix Conductor for orchestrating microservices, AI agents, and durable workflows.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/orkes/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/orkes/refs/heads/main/apis.yml)
+**Areas:** Microservices
 
-## Scope
+## Orkes on APIs.io
 
-- **Type:** Index
+Everything profiled for Orkes is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/orkes/](https://apis.io/providers/orkes/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (8)
 
-- Microservices
+- [Orkes Authentication API](https://apis.io/apis/orkes/orkes-authentication-api/) — The Authentication API from Orkes — 1 operation(s) for authentication.
+- [Orkes Human Tasks API](https://apis.io/apis/orkes/orkes-human-tasks-api/) — The Human Tasks API from Orkes — 5 operation(s) for human tasks.
+- [Orkes Schedules API](https://apis.io/apis/orkes/orkes-schedules-api/) — The Schedules API from Orkes — 4 operation(s) for schedules.
+- [Orkes Secrets API](https://apis.io/apis/orkes/orkes-secrets-api/) — The Secrets API from Orkes — 2 operation(s) for secrets.
+- [Orkes Task Metadata API](https://apis.io/apis/orkes/orkes-task-metadata-api/) — The Task Metadata API from Orkes — 2 operation(s) for task metadata.
+- [Orkes Tasks API](https://apis.io/apis/orkes/orkes-tasks-api/) — The Tasks API from Orkes — 2 operation(s) for tasks.
+- [Orkes Workflow Execution API](https://apis.io/apis/orkes/orkes-workflow-execution-api/) — The Workflow Execution API from Orkes — 7 operation(s) for workflow execution.
+- [Orkes Workflow Metadata API](https://apis.io/apis/orkes/orkes-workflow-metadata-api/) — The Workflow Metadata API from Orkes — 2 operation(s) for workflow metadata.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-03-26
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### Orkes
+Which operations an agent can call, which act, and which need a human in the loop.
 
-Orkes is a modern workflow orchestration platform built on Netflix Conductor for orchestrating microservices, AI agents, and durable workflows.
+- [Orkes Agentic Access](https://apis.io/agentic-access/orkes/orkes-agentic-access/)
 
-- **Human URL:** [https://orkes.io/](https://orkes.io/)
+#### Collections (9)
 
-#### Tags
+Postman and Open Collection request collections.
 
-- Microservices
+- [Orkes Conductor REST Authentication API](https://apis.io/collections/orkes/open-orkes-authentication-api/)
+- [Orkes Conductor REST API](https://apis.io/collections/orkes/open-orkes-conductor-api/)
+- [Orkes Conductor REST Authentication Human Tasks API](https://apis.io/collections/orkes/open-orkes-human-tasks-api/)
+- [Orkes Conductor REST Authentication Schedules API](https://apis.io/collections/orkes/open-orkes-schedules-api/)
+- [Orkes Conductor REST Authentication Secrets API](https://apis.io/collections/orkes/open-orkes-secrets-api/)
+- [Orkes Conductor REST Authentication Task Metadata API](https://apis.io/collections/orkes/open-orkes-task-metadata-api/)
+- [Orkes Conductor REST Authentication Tasks API](https://apis.io/collections/orkes/open-orkes-tasks-api/)
+- [Orkes Conductor REST Authentication Workflow Execution API](https://apis.io/collections/orkes/open-orkes-workflow-execution-api/)
+- [Orkes Conductor REST Authentication Workflow Metadata API](https://apis.io/collections/orkes/open-orkes-workflow-metadata-api/)
 
-#### Properties
+#### Security (4)
 
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/orkes/refs/heads/main/openapi/orkes-conductor-api.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/orkes-conductor-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/orkes-conductor-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Authentication, trust centre, and vulnerability disclosure.
 
-## Common Properties
+- [Orkes Authentication](https://apis.io/security/orkes/orkes-authentication/)
+- [Orkes Domain Security](https://apis.io/security/orkes/orkes-domain-security/)
+- [Orkes Trust Center](https://apis.io/security/orkes/orkes-trust-center/)
+- [Orkes Vulnerability Disclosure](https://apis.io/security/orkes/orkes-vulnerability-disclosure/)
 
-- [GitHub Organization](https://github.com/orkes-io)
-- [LinkedIn](https://www.linkedin.com/company/orkes-inc)
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Orkes Plans Pricing](https://apis.io/plans/orkes/orkes-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Orkes Rate Limits](https://apis.io/rate-limits/orkes/orkes-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Orkes Finops](https://apis.io/finops/orkes/orkes-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://orkes.io/)
-- [L L Ms Txt](https://orkes.io/llms.txt)
+- [Blog](https://orkes.io/blog)
+- [GitHub](https://github.com/orkes-io)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 26.5** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 46.4 |
+| Contract quality | 47.6 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 14.3 |
+| Access clarity | 15.8 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 22.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/orkes/](https://apis.io/providers/orkes/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Orkes: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/orkes/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
